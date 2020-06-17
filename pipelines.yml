@@ -1,6 +1,6 @@
 
 pipelines:
-  - name: pipelines_vijay
+  - name: pipelines_vijay1
     steps:
       - name: test1
         type: Jenkins
@@ -14,14 +14,12 @@ pipelines:
             - name: jenkins
 
       - name: test2
-        type: Jenkins
+        type: Bash
         configuration:
-          jenkinsJobName: var-pipeline-proj   # Jenkins job/pipeline name. required
-          priority: 2
-          buildParameters:
-            key1: 1
-            key2: 2
-          integrations:
-            - name: jenkins
           inputSteps:
-            - name : test1
+            - name : test1        
+        execution:
+          onExecute:
+            - echo "hello world" 
+            
+          
