@@ -22,7 +22,7 @@ pipelines:
       - name: test3
         type: Jenkins
         configuration:
-          jenkinsJobName: var-pipeline-proj    # Jenkins job/pipeline name. required
+          jenkinsJobName: basic-api-mb    # Jenkins job/pipeline name. required
           priority: 1
           buildParameters:
             key1: 1
