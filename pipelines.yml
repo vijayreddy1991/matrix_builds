@@ -11,6 +11,15 @@ pipelines:
             - write-output "hello world"   
             
       - name: test2
+        type: Bash
+        configuration:
+          integrations:
+            - name: jenkins        
+        execution:
+          onExecute:
+            - echo "hello world"            
+            
+      - name: test3
         type: Jenkins
         configuration:
           jenkinsJobName: var-pipeline-proj    # Jenkins job/pipeline name. required
@@ -21,6 +30,11 @@ pipelines:
           integrations:
             - name: jenkins   
           inputSteps:
-            - name : test1              
+            - name : test1  
+            - name : test2
+            
+            
+
+
             
           
