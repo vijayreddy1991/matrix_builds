@@ -1,8 +1,17 @@
 
 pipelines:
-  - name: pipelines_vijay1
+  - name: pipelines4
     steps:
       - name: test1
+        type: Bash
+        configuration:
+          integrations:
+            - name: jenkins         
+        execution:
+          onExecute:
+            - echo "hello world"
+
+      - name: test2
         type: Jenkins
         configuration:
           jenkinsJobName: var-pipeline-proj    # Jenkins job/pipeline name. required
@@ -12,15 +21,7 @@ pipelines:
             key2: 2
           integrations:
             - name: jenkins
-
-      - name: test2
-        type: PowerShell
-        configuration:
-          nodePool: win_2019
           inputSteps:
-            - name : test1         
-        execution:
-          onExecute:
-            - write-output "hello world"            
+            - name : test1
             
           
