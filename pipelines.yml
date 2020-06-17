@@ -14,12 +14,13 @@ pipelines:
             - name: jenkins
 
       - name: test2
-        type: Bash
+        type: PowerShell
         configuration:
+          nodePool: win_2019
           inputSteps:
-            - name : test1        
+            - name : test1         
         execution:
           onExecute:
-            - echo "hello world" 
+            - write-output "hello world"            
             
           
