@@ -1,6 +1,6 @@
 
 pipelines:
-  - name: pipelines_vijay1
+  - name: pipelines_vijay2
     steps:
       - name: test1
         type: Jenkins
