@@ -4,7 +4,7 @@ pipelines:
       - name: Normal_Step
         type: Bash
         configuration:
-#           nodePool: u18dynamic
+          nodePool: vijay
 #           inputResources:
 #             - name: self_repo
         execution:
