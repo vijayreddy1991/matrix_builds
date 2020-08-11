@@ -9,13 +9,14 @@ pipelines:
             - env1: one
             - env2: two
           runtimes:
-            type: image
+            - type: image
             image:
               auto:
                 language: node
                 versions:
-                  - 8.17.0
-            type: image                  
+                  - 10.17.0
+                
+            - type: image
             image:
               auto:
                 language: node
