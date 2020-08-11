@@ -32,8 +32,8 @@ pipelines:
     steps:
       - name: S_Matrix_0012
         type: Matrix
-#         stepMode: Bash
-        configuration:         
+        stepMode: Bash
+#         configuration:         
         stepletMultipliers:      
           environmentVariables:
             - key1: value1
