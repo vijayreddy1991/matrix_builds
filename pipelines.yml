@@ -31,8 +31,8 @@ pipelines:
   - name: Matrix_pipeline
     steps:
       - name: S_Matrix_0012
-        type: PreMatrix
-        stepMode: Bash
+        type: Matrix
+#         stepMode: Bash
         configuration:         
         stepletMultipliers:      
           environmentVariables:
