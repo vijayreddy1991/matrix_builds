@@ -1,71 +1,24 @@
 
-# pipelines:
-#   - name: pipelines_vijay
-#     steps:
-#       - name: test1
-#         type: Jenkins
-#         configuration:
-#           jenkinsJobName: var_output_job    # Jenkins job/pipeline name. required
-#           priority: 1
-#           buildParameters:
-#             key1: 1
-#             key2: 2
-#           integrations:
-#             - name: jenkins
-
-#       - name: test2
-#         type: Jenkins
-#         configuration:
-#           jenkinsJobName: var_output_job   # Jenkins job/pipeline name. required
-#           priority: 2
-#           buildParameters:
-#             key1: 1
-#             key2: 2
-#           integrations:
-#             - name: jenkins
-#           inputSteps:
-#             - name : test1
-
-
-# pipelines:
-#   - name: Matrix_pipeline
-#     steps:
-#       - name: S_Matrix_0012
-#         type: PreMatrix
-# #         stepMode: Bash
-# # #         configuration:         
-# #         stepletMultipliers:      
-# #           environmentVariables:
-# #             - key1: value1
-#         execution:
-#           onExecute:
-#             - echo "Executing matrix step"
-#             - set_step_var my_Step value1
-
-
-#       - name: S_Matrix_0012_1
-#         type: Matrix
-#         configuration:
-#           inputSteps:
-#             - name: S_Matrix_0012
-#         execution:
-#           onExecute:
-#             - echo "Executing Matrix step"
-#             - text=$( get_step_var S_Matrix_0012 my_Step )
-#             - |
-#               [[ "$text" == "value1" ]]
-
-
 pipelines:
-  - name: Pipelines_S_Matrix_0014
+  - name: Pipelines_S_Matrix_0017
     steps:
-      - name: S_Matrix_0014
+      - name: S_Matrix_0017
         type: Matrix
         stepMode: Bash
         stepletMultipliers:
           environmentVariables:
             - env1: one
             - env2: two
+          runtimes: 
+            type: image                              # optional, only needed if customer
+            - image:                  # wants to execute step against
+                auto:                 # multiple images
+                  language: node
+                  version: 10.21.0
+            - image:
+                auto:
+                  language: node
+                  version: 12.14.0
         execution:
           onExecute:
             - echo "Hello world"
