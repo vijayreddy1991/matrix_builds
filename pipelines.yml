@@ -1,27 +1,23 @@
 pipelines:
-  - name: Pipelines_S_Matrix_0017
+  - name: Matrix_pipeline
     steps:
-      - name: S_Matrix_0017
-        type: Matrix
-        stepMode: Bash
-        stepletMultipliers:
-          environmentVariables:
-            - env1: one
-            - env2: two
-          runtimes:
-            - type: image
-              image:
-                auto:
-                  language: node
-                  versions:
-                    - 10.17.0
-                
-            - type: image
-              image:
-                auto:
-                  language: node
-                  versions:
-                    - 8.17.0
+      - name: S_Matrix_0022
+        type: PreMatrix
         execution:
           onExecute:
-            - echo "Hello world"
+            - echo "Hello World"
+            - echo "Fan out working" > PreMatrix_1.txt
+
+      - name: Matrix_step
+        type: Matrix
+        configuration:
+          inputSteps:
+            - name: S_Matrix_0022
+        execution:
+          onExecute:
+            - echo "Executing matrix step"
+
+            - tem=$( ls -l ./matrix_step/S_Matrix_0022| sed -n '2p' )
+            - x=$( echo $tem | awk -F " " '{print $NF}' )
+            - |
+              [[ "$x" == "PreMatrix_1.txt" ]]
