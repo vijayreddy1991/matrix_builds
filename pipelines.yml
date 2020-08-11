@@ -33,6 +33,7 @@ pipelines:
       - name: S_Matrix_0012
         type: PreMatrix
         stepMode: Bash
+        configuration:         
         stepletMultipliers:      
           environmentVariables:
             - key1: value1
