@@ -6,8 +6,8 @@ pipelines:
         stepMode: Bash
         stepletMultipliers:
           environmentVariables:
-#             - env1: one
-#             - env2: two
+            - env1: one
+            - env2: two
           runtimes:
             - type: image
               image:
