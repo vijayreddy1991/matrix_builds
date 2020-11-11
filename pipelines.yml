@@ -1,26 +1,29 @@
-
 pipelines:
-  - name: pipelines_vijay3
+  - name: Pipelines_S_Matrix_0021
     steps:
-      - name: test1
-        type: Jenkins
-        configuration:
-          jenkinsJobName: basic-api-mb   # Jenkins job/pipeline name. required
-          priority: 1
-          buildParameters:
-            key1: 1
-            key2: 2
-          integrations:
-            - name: jenkins
+      - name: S_Matrix_0021
+        type: Matrix
+        stepMode: Bash
+        stepletMultipliers:
+          environmentVariables:
+            - env1: one
+#             - env2: two
+          runtimes:
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 10.21.0
 
-      - name: test2
-        type: PowerShell
-        configuration:
-          nodePool: win_2019
-          inputSteps:
-            - name : test1         
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 8.17.0
         execution:
           onExecute:
-            - write-output "hello world"            
+            - echo "Hello world"           
             
           
