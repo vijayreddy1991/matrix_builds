@@ -19,9 +19,9 @@ pipelines:
             - type: image
               image:
                 auto:
-                  language: node
+                  language: nodetesting
                   versions:
-                    - 812.17.0
+                    - 8.17.0
         execution:
           onExecute:
             - echo "Hello world"
