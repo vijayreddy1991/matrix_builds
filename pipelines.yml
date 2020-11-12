@@ -1,57 +1,92 @@
 
 pipelines:
-  - name: S_Matrix_MN_008
+  - name: S_Matrix_MN_00123
     steps:
 
-      - name: S_Matrix_MN_008_001
+      - name: S_Matrix_MN_008_001123
         type: Bash
         execution:
           onStart:
             - echo "Step is running"
 
-      - name: S_Matrix_MN_008_002
+#       - name: S_Matrix_MN_008_002
+#         type: Matrix
+#         stepMode: Bash
+#         configuration:
+#           inputSteps:
+#             - name: S_Matrix_MN_008_001
+#           multiNode: true
+#         stepletMultipliers:
+#           environmentVariables:
+#             - foo: "foo"
+#             - foo: "bar"
+#             - foo: "baz"
+#           fastFail: true     # default false. If specified, matrix
+#                                      # step fails when any steplet fails,
+#                                      # unless specified in allowFailures
+ 
+#           allowFailures:             # optional, array of combinations
+# #             - nodePool:              # that are allowed to fail 
+#               environmentVariables:
+#                 env1: abc                             
+#                 env2: xyz
+#               runtime:              
+ 
+#           exclude:                   # optional, array of combinations
+# #             - nodePool:              # that are not executed 
+#               environmentVariables:
+#                 env1: one
+#                 env2: two
+#               runtime:             
+#         execution:
+#           onStart:
+#             - set_step_var "steplet_info" "Executed matrix steplet - ${steplet_id} on node id - ${step_node_id}"
+#           onExecute:
+#             - echo "$steplet_info"
+            
+
+#       - name: S_Matrix_MN_008_003
+#         type: Bash
+#         configuration:
+#           inputSteps:
+#             - name: S_Matrix_MN_008_002
+#         execution:
+#           onExecute:
+#             - get_step_var "S_Matrix_MN_008_002" "steplet_info"             
+            
+      - name: matrix_2
         type: Matrix
         stepMode: Bash
         configuration:
-          inputSteps:
-            - name: S_Matrix_MN_008_001
           multiNode: true
+          inputSteps: 
+            - name: S_Matrix_MN_008_001123
+#           inputResources:
+#             - name: self_repo
         stepletMultipliers:
+          fastFail: true
+          allowFailures:
+            - environmentVariables:
+                delay: 1
+                fail: 'true'
+          exclude:
+            - environmentVariables:
+                delay: 10
+                fail: 'true'
           environmentVariables:
-            - foo: "foo"
-            - foo: "bar"
-            - foo: "baz"
-          fastFail: true     # default false. If specified, matrix
-                                     # step fails when any steplet fails,
-                                     # unless specified in allowFailures
- 
-          allowFailures:             # optional, array of combinations
-#             - nodePool:              # that are allowed to fail 
-              environmentVariables:
-                env1: abc                             
-                env2: xyz
-              runtime:              
- 
-          exclude:                   # optional, array of combinations
-#             - nodePool:              # that are not executed 
-              environmentVariables:
-                env1: one
-                env2: two
-              runtime:             
+            - delay: 1
+              fail: 'true'
+            - delay: 10
+              fail: 'true'
+            - delay: 15
+              fail: 'false'
+            - delay: 20
+              fail: 'false' 
         execution:
           onStart:
-            - set_step_var "steplet_info" "Executed matrix steplet - ${steplet_id} on node id - ${step_node_id}"
+            - sleep "$delay"
           onExecute:
-            - echo "$steplet_info"
-            
-
-      - name: S_Matrix_MN_008_003
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: S_Matrix_MN_008_002
-        execution:
-          onExecute:
-            - get_step_var "S_Matrix_MN_008_002" "steplet_info"             
-            
-          
+            - echo "I am on matrix step"
+            - |
+              [ $fail == 'false' ] 
+            - ls -l .          
