@@ -10,8 +10,8 @@ pipelines:
             - env2: two
           allowFailures:
             - environmentVariables:
-                - env1: one
-                - env2: two
+                env1: one
+                env2: two
           runtimes:
             - type: image
               image:
