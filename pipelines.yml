@@ -5,9 +5,10 @@ pipelines:
         type: Matrix
         stepMode: Bash
         stepletMultipliers:
+          allowFailures:
           environmentVariables:
             - env1: one
-#             - env2: two
+            - env2: two
           runtimes:
             - type: image
               image:
@@ -16,12 +17,12 @@ pipelines:
                   versions:
                     - 10.21.0
 
-#             - type: image
-#               image:
-#                 auto:
-#                   language: node
-#                   versions:
-#                     - 8.17.0
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 812.17.0
         execution:
           onExecute:
             - echo "Hello world"           
