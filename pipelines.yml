@@ -26,14 +26,14 @@ pipelines:
                                      # unless specified in allowFailures
  
           allowFailures:             # optional, array of combinations
-            - nodePool:              # that are allowed to fail 
+#             - nodePool:              # that are allowed to fail 
               environmentVariables:
                 env1: abc                             
                 env2: xyz
               runtime:              
  
           exclude:                   # optional, array of combinations
-            - nodePool:              # that are not executed 
+#             - nodePool:              # that are not executed 
               environmentVariables:
                 env1: one
                 env2: two
