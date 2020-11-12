@@ -1,26 +1,57 @@
 
 pipelines:
-  - name: pipelines_vijay5
+  - name: S_Matrix_MN_008
     steps:
-      - name: test1
-        type: PowerShell
+
+      - name: S_Matrix_MN_008_001
+        type: Bash
+        execution:
+          onStart:
+            - echo "Step is running"
+
+      - name: S_Matrix_MN_008_002
+        type: Matrix
+        stepMode: Bash
         configuration:
-          nodePool: win_2019       
+          inputSteps:
+            - name: S_Matrix_MN_008_001
+          multiNode: true
+        stepletMultipliers:
+          environmentVariables:
+            - foo: "foo"
+            - foo: "bar"
+            - foo: "baz"
+          fastFail: true     # default false. If specified, matrix
+                                     # step fails when any steplet fails,
+                                     # unless specified in allowFailures
+ 
+          allowFailures:             # optional, array of combinations
+            - nodePool:              # that are allowed to fail 
+              environmentVariables:
+                env1: abc                             
+                env2: xyz
+              runtime:              
+ 
+          exclude:                   # optional, array of combinations
+            - nodePool:              # that are not executed 
+              environmentVariables:
+                env1: one
+                env2: two
+              runtime:             
+        execution:
+          onStart:
+            - set_step_var "steplet_info" "Executed matrix steplet - ${steplet_id} on node id - ${step_node_id}"
+          onExecute:
+            - echo "$steplet_info"
+            
+
+      - name: S_Matrix_MN_008_003
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: S_Matrix_MN_008_002
         execution:
           onExecute:
-            - write-output "hello world"   
-            
-      - name: test2
-        type: Jenkins
-        configuration:
-          jenkinsJobName: basic-api-mb    # Jenkins job/pipeline name. required
-          priority: 1
-          buildParameters:
-            key1: 1
-            key2: 2
-          integrations:
-            - name: jenkins   
-          inputSteps:
-            - name : test1              
+            - get_step_var "S_Matrix_MN_008_002" "steplet_info"             
             
           
