@@ -58,13 +58,13 @@ pipelines:
         type: Matrix
         stepMode: Bash
         configuration:
-          runtimes:
-            - type: image
-              image:
-                auto:
-                  language: node
-                  versions:
-                    - 10.21.0         
+#           runtimes:
+#             - type: image
+#               image:
+#                 auto:
+#                   language: node
+#                   versions:
+#                     - 10.21.0         
           multiNode: true
           inputSteps: 
             - name: S_Matrix_MN_008_001123
